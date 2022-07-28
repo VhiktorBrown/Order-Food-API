@@ -15,6 +15,12 @@ const userSchema = new mongoose.Schema({
         unique: true,
         trim: true,
     },
+    email : {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+    },
     password: {
         type: String,
         required: true,
@@ -52,11 +58,11 @@ userSchema.methods.toJSON = function() {
     return userObject
 }
 
-userSchema.statics.findByCredentials = async (phoneNumber, password) => {
-    const user = await User.findOne({ phoneNumber }) //.populate('department faculty')
+userSchema.statics.findByCredentials = async (email, password) => {
+    const user = await User.findOne({ email })
 
     if(!user){
-        throw new Error('Unable to login')
+        throw new Error('Unable to login. User not found.')
     }
 
     const isMatch = await bcrypt.compare(password, user.password)
