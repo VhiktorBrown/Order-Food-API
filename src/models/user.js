@@ -32,10 +32,10 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
-    phoneNumber: {
-        type: Number,
-        default: 0,
-        minlength: 11,
+    phone: {
+        type: String,
+        required: true,
+        minlength: 10,
     },
     tokens: [{
         token: {
